@@ -1,0 +1,386 @@
+@font-face {
+            font-family: "MPLUS";
+            src: url("/Fonts/MPLUSRounded1c-ExtraBold.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-color: #212830;
+            --text-light: #ffffff;
+            --text-muted: #b8bec5;
+            --accent-green: #4BCD79;
+            --sidebar-bg: #1a1f26;
+            --button-bg: #2f363d;
+            --button-hover: #243934;
+            --button-text: #979a9e;
+            --button-hover-text: #41ce5c;
+            --button-hover-border: #3bb054;
+            --border-color: #3a4654;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Menu Toggle Button */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: var(--button-bg);
+            border: none;
+            color: var(--text-light);
+            font-size: 28px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-toggle:hover {
+            background: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            z-index: 1200;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h3 {
+            font-family: "MPLUS", sans-serif;
+            color: var(--accent-green);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .close-btn:hover {
+            opacity: 0.7;
+        }
+
+        /* Navigation Buttons in Sidebar */
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: 1px solid transparent;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-btn i {
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--button-hover);
+            color: var(--button-hover-text);
+            border: 1px solid var(--button-hover-border);
+            transform: translateX(5px);
+        }
+
+        .nav-btn.active {
+            background: var(--button-hover);
+            color: var(--button-hover-text);
+            border: 1px solid var(--button-hover-border);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 100px 20px 180px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            background: rgba(42, 52, 64, 0.5);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-green);
+            flex-shrink: 0;
+            background: var(--button-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-family: "MPLUS", sans-serif;
+            color: var(--accent-green);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-title {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 30px 0;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            margin-bottom: 40px;
+        }
+
+        .intro-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .skills-list {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .skills-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .skills-list li::before {
+            content: "•";
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .contact-text {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .email-link {
+            color: var(--accent-green);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .email-link:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-family: "MPLUS", sans-serif;
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .education-item {
+            border-left: 3px solid var(--accent-green);
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .education-degree {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .education-year {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .interests-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .interests-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .interests-list li::before {
+            content: "•";
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .language-box {
+            border-left: 3px solid var(--accent-green);
+            padding: 15px 20px;
+            background: rgba(75, 205, 121, 0.05);
+            border-radius: 5px;
+        }
+
+        .language-box p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 80px 15px 150px;
+            }
+
+            .menu-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-name {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+        }
