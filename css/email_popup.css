@@ -103,7 +103,7 @@
     color: #e0e0e0c1;
     font-size: 1rem;
     transition: all 0.35s ease, box-shadow 0.35s ease;
-    box-shadow: inset 0 0 2px rgba(255,255,255,0.1); 
+    box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.37); 
     overflow: visible;
     caret-color: var(--accent-green); /* blinking cursor color */
 }
