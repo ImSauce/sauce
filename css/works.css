@@ -542,8 +542,42 @@ body {
     color: inherit;          /* keep text color */
 }
 
-.witchtype-link:hover .game-item {
-    transform: scale(1.02); /* optional hover effect */
-    transition: transform 0.3s ease;
+
+
+
+.game-item {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    background: var(--game-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
+/* Pseudo-element for smooth left-side glow covering 80% */
+.game-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;             /* only 80% of the box */
+    height: 100%;
+    pointer-events: none;
+
+    /* gradient fading from left to right */
+    background: linear-gradient(to right, rgba(75, 205, 121, 0.4) 0%, rgba(75, 205, 121, 0) 100%);
+    opacity: 0;
+    transform: translateX(-100%); /* start off-screen left */
+    transition: all 0.5s ease;
+    z-index: -1;            /* behind content */
+    border-radius: 12px 0 0 12px; /* match left rounded corners */
+}
+
+.game-item:hover::after {
+    opacity: 1;
+    transform: translateX(0); /* slide in to cover 80% of box */
+}
