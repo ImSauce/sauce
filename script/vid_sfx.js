@@ -100,11 +100,20 @@ spinner.innerHTML = `<i class="bi bi-arrow-repeat spin-icon"></i>`; // green & s
 videoContainer.appendChild(spinner);
 
 
-
-// show spinner initially
+// Show spinner initially
 spinner.style.display = "block";
 
-// hide spinner when video can play
-featuredVideo.addEventListener("canplaythrough", () => {
+// Function to hide spinner
+function hideSpinner() {
     spinner.style.display = "none";
+}
+
+// Hide spinner when video is ready to play or actually playing
+featuredVideo.addEventListener("canplay", hideSpinner);       // first frame ready
+featuredVideo.addEventListener("playing", hideSpinner);      // video actually playing
+featuredVideo.addEventListener("loadeddata", hideSpinner);   // fallback: first frame loaded
+
+// Optional: in case of network errors
+featuredVideo.addEventListener("error", () => {
+    spinner.innerHTML = "⚠️ Failed to load video";
 });
