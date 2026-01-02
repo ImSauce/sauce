@@ -681,16 +681,16 @@ body {
 }
 
 
+/* Desktop-first styles (keep your existing ones) */
 .about-image {
     position: relative;
-    top: -25px;                  /* cancel top padding */
-    left: -25px;                 /* cancel left padding */
-    width: calc(100% + 50px);    /* fill full card width */
-    margin-bottom: -5px;         /* tighten spacing below image */
+    top: -25px;                  
+    left: -25px;                 
+    width: calc(100% + 50px);    
+    margin-bottom: -5px;         
     overflow: hidden;
     border-radius: 10px 10px 0 0;
 }
-
 
 .about-image img {
     width: 100%;
@@ -699,22 +699,22 @@ body {
     object-fit: cover;
 }
 
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .about-image {
+        position: relative;
+        top: 0;             /* remove negative offset */
+        left: 0;            /* remove negative offset */
+        width: 100%;        /* make it fit container */
+        margin-bottom: 10px;/* small spacing below */
+    }
 
-.video-volume-control {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,0,0,0.4);
-    padding: 5px 10px;
-    border-radius: 8px;
-    backdrop-filter: blur(5px);
-    z-index: 20;
+    .about-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain; /* prevents cropping/stretching */
+    }
 }
-
-
 
 
 
@@ -850,4 +850,26 @@ body {
 .play-pause-btn:hover i {
     color: var(--accent-green);
     transform: scale(1.2);
+}
+
+
+
+.video-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30; /* above volume/play */
+    pointer-events: none; /* clicks pass through */
+}
+
+.spin-icon {
+    font-size: 2rem;
+    color: white;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

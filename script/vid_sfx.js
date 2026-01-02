@@ -90,3 +90,21 @@ videoContainer.addEventListener("touchstart", showPlayBtn);
 
 // show initially
 showPlayBtn();
+
+
+
+// create spinner overlay
+const spinner = document.createElement("div");
+spinner.classList.add("video-spinner");
+spinner.innerHTML = `<i class="bi bi-arrow-repeat spin-icon"></i>`; // using bootstrap icon
+videoContainer.appendChild(spinner);
+
+
+
+// show spinner initially
+spinner.style.display = "block";
+
+// hide spinner when video can play
+featuredVideo.addEventListener("canplaythrough", () => {
+    spinner.style.display = "none";
+});
