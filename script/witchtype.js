@@ -256,3 +256,34 @@ thumbnails.on('click', stopAutoplay);
         }
     });
 });
+
+
+
+
+
+
+
+
+
+function fixMobileOrder() {
+    const description = $('.-extra-info-main');
+
+    if ($(window).width() <= 992) {
+        // Move description AFTER About, BEFORE System (mobile)
+        if (!description.parent().hasClass('game-info')) {
+            $('.info-sidebar').before(description);
+        }
+    } else {
+        // Move description BACK to original parent (desktop)
+        const originalParent = $('.media-carousel');
+        if (!description.parent().is(originalParent)) {
+            originalParent.append(description);
+        }
+    }
+}
+
+// Run on page load
+fixMobileOrder();
+
+// Run on resize
+$(window).on('resize', fixMobileOrder);
