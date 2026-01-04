@@ -15,11 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     toggle.addEventListener("click", () => {
-        // play sfx
-        clickSfx.currentTime = 0; // allows rapid clicking
-        clickSfx.play();
-
         visible = !visible;
+
+        // ONLY play sfx when opening
+        if (visible) {
+            clickSfx.currentTime = 0;
+            clickSfx.play();
+        }
 
         easterItems.forEach(item => {
             if (visible) {
