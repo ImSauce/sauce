@@ -510,3 +510,16 @@
                 filter: brightness(1);
             }
         }
+
+
+        .flash-gif {
+            background-position: center;
+        }
+
+        /* mobile only */
+        @media (max-width: 768px) {
+            .flash-gif {
+                background-position: left center;
+                background-size: 200% auto;
+            }
+        }

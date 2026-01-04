@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("toggle-anime");
     const easterItems = document.querySelectorAll(".easter-item");
 
-    // preload sfx
+    // preload sfx (GitHub-safe)
     const clickSfx = new Audio("../audio/momoi.mp3");
-    clickSfx.volume = 0.6; // adjust vibe
+    clickSfx.volume = 0.6;
 
     // hide everything initially
     easterItems.forEach(item => {
@@ -15,12 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     toggle.addEventListener("click", () => {
+        const wasVisible = visible; // 👈 capture previous state
         visible = !visible;
 
-        // ONLY play sfx when opening
-        if (visible) {
+        // 🔊 play ONLY when transitioning: hidden → visible
+        if (!wasVisible && visible) {
             clickSfx.currentTime = 0;
-            clickSfx.play();
+            clickSfx.play().catch(() => {});
         }
 
         easterItems.forEach(item => {
@@ -36,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -55,10 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
         flash.style.left = "0";
         flash.style.width = "100vw";
         flash.style.height = "100vh";
-        flash.style.background = `url("../images/momoi.gif") center / cover no-repeat`;
         flash.style.zIndex = "9999";
         flash.style.opacity = "1";
         flash.style.transition = "opacity 0.3s ease";
+        flash.classList.add("flash-gif");
+        flash.style.backgroundImage = `url("../images/momoi.gif")`;
+        flash.style.backgroundRepeat = "no-repeat";
+        flash.style.backgroundSize = "cover";
 
         document.body.appendChild(flash);
 
