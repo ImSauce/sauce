@@ -1,12 +1,12 @@
-// -----------------------------
-// Discord pop-up
-// -----------------------------
+// --------------------------------------
+// Discord image pop-up when user click
+// --------------------------------------
 const discordLink = document.querySelector('.contact-item[href*="discord.com"]');
 
 discordLink.addEventListener("click", (e) => {
     e.preventDefault();
 
-    // Create modal only on click
+    // Create modal(make discord clickable) only on click
     let modal = document.getElementById("discordModal");
     if (!modal) {
         modal = document.createElement("div");
@@ -35,14 +35,14 @@ discordLink.addEventListener("click", (e) => {
         `;
         modal.appendChild(img);
 
-        // Click outside image closes modal
+        // Click outside image to close modal (the image pop out layered on top)
         modal.addEventListener("click", () => {
             modal.style.display = "none";
         });
 
         document.body.appendChild(modal);
 
-        // Add popin animation style once
+        // Add animation style once
         if (!document.getElementById("popinStyle")) {
             const style = document.createElement("style");
             style.id = "popinStyle";
