@@ -180,5 +180,36 @@
 
     
     <script src="../script/about_egg.js"></script>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const mainContent = document.querySelector(".main-content");
+        const navButtons = document.querySelectorAll(".nav-buttons a");
+
+        // FADE IN main content on load
+        setTimeout(() => {
+            mainContent.style.opacity = 1;
+        }, 50);
+
+        navButtons.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault(); // stop instant navigation
+
+                // fade out the whole page (body)
+                document.body.classList.add("page-exit-animation");
+
+                // redirect after fade-out duration
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 1500); // match transition
+            });
+        });
+    });
+    </script>
+
+
+
+
 </body>
 </html>

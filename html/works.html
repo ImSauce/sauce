@@ -23,7 +23,9 @@
     <script defer src="../script/bgm.js"></script>
 </head>
 <body>
-    <!-- Menu Toggle Button -->
+
+    <div id="page-wrapper">
+        <!-- Menu Toggle Button -->
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
         <i class="bi bi-list"></i>
     </button>
@@ -224,6 +226,10 @@
         </div>
     </main>
 
+
+    </div>
+    
+
     <!-- <div id="imageModal" class="image-modal">
         <img id="modalImg" />
         <a id="downloadBtn" class="download-btn" download>download</a>
@@ -235,6 +241,35 @@
             <img src="../images/download_icon.png" alt="Download" />
         </a>
     </div>
+
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const mainContent = document.querySelector(".main-content");
+        const navButtons = document.querySelectorAll(".nav-buttons a");
+        const pageWrapper = document.getElementById("page-wrapper");
+
+        // Fade-in on load
+        setTimeout(() => {
+            mainContent.style.opacity = 1;
+        }, 50);
+
+        navButtons.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Fade out wrapper
+                pageWrapper.classList.add("page-exit-animation");
+
+                // Redirect after fade
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 1500);
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>

@@ -179,6 +179,12 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            opacity: 0; /* start hidden for fade-in */
+            transition: opacity 1s ease; /* fade-in duration */
+        }
+        .page-exit-animation {
+            opacity: 0; /* fade-out */
+            transition: opacity 1s ease; /* fade-out duration */
         }
 
         .container {

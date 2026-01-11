@@ -39,6 +39,23 @@ body {
     caret-color: transparent;
 }
 
+.main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+
+
+#page-wrapper {
+    opacity: 1;
+    transition: opacity 1.5s ease;
+}
+
+#page-wrapper.page-exit-animation {
+    opacity: 0;
+}
+
+
 /* Header Icons */
 .header-icons {
     position: fixed;
