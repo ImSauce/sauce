@@ -247,29 +247,44 @@
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         const mainContent = document.querySelector(".main-content");
-        const navButtons = document.querySelectorAll(".nav-buttons a");
         const pageWrapper = document.getElementById("page-wrapper");
 
         // Fade-in on load
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             mainContent.style.opacity = 1;
-        }, 50);
+        });
 
-        navButtons.forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
+        // Intercept ALL internal links
+        document.body.addEventListener("click", (e) => {
+            const link = e.target.closest("a");
 
-                // Fade out wrapper
-                pageWrapper.classList.add("page-exit-animation");
+            if (!link) return;
 
-                // Redirect after fade
-                setTimeout(() => {
-                    window.location.href = link.href;
-                }, 1500);
-            });
+            const href = link.getAttribute("href");
+
+            // ignore:
+            // - external links
+            // - new tab
+            // - anchors
+            if (
+                !href ||
+                href.startsWith("http") ||
+                link.target === "_blank" ||
+                href.startsWith("#")
+            ) return;
+
+            e.preventDefault();
+
+            // trigger fade
+            pageWrapper.classList.add("page-exit-animation");
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 1500);
         });
     });
     </script>
+
 
 </body>
 </html>
