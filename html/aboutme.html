@@ -184,44 +184,39 @@
     <script src="../script/about_egg.js"></script>
 
 
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const mainContent = document.querySelector(".main-content");
-        const navButtons = document.querySelectorAll(".nav-buttons a");
+<script>
+function showContent() {
+    const mainContent = document.querySelector(".main-content");
+    if (mainContent) {
+        mainContent.classList.add("show");
+    }
+}
 
-        // FADE IN main content on load
-        setTimeout(() => {
-            mainContent.style.opacity = 1;
-        }, 50);
+document.addEventListener("DOMContentLoaded", () => {
+    showContent();
 
-        navButtons.forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault(); // stop instant navigation
+    document.querySelectorAll(".nav-buttons a").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
 
-                // fade out the whole page (body)
-                document.body.classList.add("page-exit-animation");
+            document.body.classList.add("page-exit-animation");
 
-                // redirect after fade-out duration
-                setTimeout(() => {
-                    window.location.href = link.href;
-                }, 1500); // match transition
-            });
+            setTimeout(() => {
+                window.location.href = link.href;
+            }, 1500);
         });
     });
-
-
-    window.addEventListener("pageshow", (event) => {
-    const mainContent = document.querySelector(".main-content");
-
-    // If page was restored from bfcache
-    if (event.persisted) {
-        document.body.classList.remove("page-exit-animation");
-        mainContent.style.opacity = "1";
-    }
 });
 
+// 🔥 THIS IS THE IMPORTANT PART 🔥
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        document.body.classList.remove("page-exit-animation");
+        showContent();
+    }
+});
+</script>
 
-    </script>
 
 
 
