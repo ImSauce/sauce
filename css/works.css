@@ -39,20 +39,21 @@ body {
     caret-color: transparent;
 }
 
-/* Fade animations */
+
 .main-content {
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
+        .main-content.show {
+            opacity: 1;
+        }
 
-.main-content.show {
-    opacity: 1;
-}
+        .page-exit-animation .main-content {
+            opacity: 0;
+        }
 
-/* page-exit-animation override */
-.page-exit-animation .main-content {
-    opacity: 0;
-}
+
+
 
 /* Header Icons */
 .header-icons {
@@ -134,6 +135,10 @@ body {
     font-family: "MPLUS", sans-serif;
     color: var(--accent-green);
     font-size: 1.5rem;
+}
+
+.sidebar-header h3 i {
+    margin-right: 10px;
 }
 
 .close-btn {
@@ -252,7 +257,9 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 0 0 #00000027;
+
+    /* shadow on left like a solid bar */
+     box-shadow: 0 6px 0 0 #00000027;   /* negative X offset = left */
 }
 
 .tool-badge:hover {
@@ -262,56 +269,80 @@ body {
     transform: translateY(-2px);
 }
 
-.tool-badge a {
-    color: inherit;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-/* Illustrations Grid */
+/* Illustrations Grid – Pinterest Style */
 .illustrations-grid {
-    column-count: 4;
+    column-count: 4;          /* desktop */
     column-gap: 20px;
 }
 
+/* Each item behaves like a masonry card */
 .illustration-item {
     break-inside: avoid;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 20px;
-    aspect-ratio: auto;
-    position: relative;
-    transition: transform 0.35s cubic-bezier(.22,.61,.36,1),
-                box-shadow 0.35s ease;
+    aspect-ratio: auto;       /* IMPORTANT: remove square lock */
+
+    transition:
+    transform 0.35s cubic-bezier(.22,.61,.36,1),
+    box-shadow 0.35s ease;
+    will-change: transform;
+    
 }
 
-/* Dark overlay on image */
+
+
+@media (max-width: 1200px) {
+    .illustrations-grid {
+        column-count: 4;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .illustrations-grid {
+        column-count: 3;
+        column-gap: 10px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .illustrations-grid {
+        column-count: 2;
+        overflow: hidden;
+    }
+}
+
+
+/* Dark overlay */
 .illustration-item::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: #2128301e;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background: #2128301e; /* 10% black */
     transition: background 0.3s ease;
-    z-index: 2;
+    z-index: 2; /* above image but below hover effects if needed */
     pointer-events: none;
 }
 
+/* On hover, remove the darkness */
 .illustration-item:hover::before {
-    background: rgba(0,0,0,0);
+    background: rgba(0,0,0,0); /* fully clear */
 }
+
+
 
 .illustration-item:hover {
     transform: translateY(-8px) scale(1.03);
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
-
 .illustration-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 100%;             
+    object-fit: cover;         
     display: block;
+
     will-change: transform;
     backface-visibility: hidden;
     object-position: center;
@@ -319,6 +350,7 @@ body {
 }
 
 .illustration-item:hover img {
+    transform: scale(1.05);
     transform: scale(1.06);
 }
 
@@ -358,8 +390,6 @@ body {
     padding: 25px;
     border-radius: 12px;
     border: 2px solid var(--border-color);
-    position: relative;
-    overflow: hidden;
     transition: all 0.3s ease;
 }
 
@@ -367,28 +397,6 @@ body {
     border-color: var(--button-hover-border);
     transform: translateY(-3px);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Left-side glow effect */
-.game-item::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 100%;
-    pointer-events: none;
-    background: linear-gradient(to right, rgba(75, 205, 121, 0.4) 0%, rgba(75, 205, 121, 0) 100%);
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: all 0.5s ease;
-    z-index: -1;
-    border-radius: 12px 0 0 12px;
-}
-
-.game-item:hover::after {
-    opacity: 1;
-    transform: translateX(0);
 }
 
 .game-thumbnail {
@@ -424,7 +432,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 992px) {
     .game-item {
         grid-template-columns: 200px 1fr;
@@ -433,23 +441,25 @@ body {
     }
 }
 
+
 @media (max-width: 768px) {
+    /* Published games adjustment */
     .games-list .game-item {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 20px;
+        grid-template-columns: 1fr; /* single column */
+        gap: 15px; /* reduce gap between image and text */
+        padding: 20px; /* smaller padding */
     }
 
     .games-list .game-thumbnail {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
+        width: 100%;      /* full width */
+        max-width: 300px; /* optional limit */
+        margin: 0 auto;   /* center the image */
     }
 
     .games-list .game-info {
-        width: 100%;
-        text-align: center;
-        gap: 10px;
+        width: 100%;      /* full width */
+        text-align: center; /* optional, makes it look neat */
+        gap: 10px;         /* reduce spacing between title/desc */
     }
 
     .main-content {
@@ -464,6 +474,11 @@ body {
     .illustrations-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
+    }
+
+    .game-item {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .game-thumbnail {
@@ -515,28 +530,173 @@ body {
     }
 }
 
-/* Scrollbar – modern slick */
-*::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+
+
+
+
+.image-modal {
+    position: fixed;           /* STICKS TO SCREEN */
+    inset: 0;                  /* top right bottom left = 0 */
+    background: rgba(0,0,0,0.85);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 99999;            /* ABOVE EVERYTHING */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
 }
 
-*::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
+.image-modal.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-*::-webkit-scrollbar-thumb {
-    background: rgba(75,205,121,0.25);
-    border-radius: 10px;
-    transition: background 0.3s ease;
+.image-modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.6);
 }
 
-*::-webkit-scrollbar-thumb:hover {
-    background: rgba(75,205,121,0.9);
+
+
+.download-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--button-bg);
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: rem;
+    z-index: 100000;
+    transition: all 0.3s ease;
 }
 
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(75,205,121,0.6) rgba(255,255,255,0.05);
+.download-btn:hover {
+    background: var(--button-hover);
+    color: var(--accent-green);
 }
+
+
+.download-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10000;
+    width: 50px; /* size of your icon */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-btn img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.download-btn img:hover {
+    transform: scale(1.1);
+}
+
+
+
+.witchtype-link {
+    display: block;          /* whole card clickable */
+    text-decoration: none;   /* remove underline */
+    color: inherit;          /* keep text color */
+}
+
+
+
+
+.game-item {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    background: var(--game-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Pseudo-element for smooth left-side glow covering 80% */
+.game-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;             /* only 80% of the box */
+    height: 100%;
+    pointer-events: none;
+
+    /* gradient fading from left to right */
+    background: linear-gradient(to right, rgba(75, 205, 121, 0.4) 0%, rgba(75, 205, 121, 0) 100%);
+    opacity: 0;
+    transform: translateX(-100%); /* start off-screen left */
+    transition: all 0.5s ease;
+    z-index: -1;            /* behind content */
+    border-radius: 12px 0 0 12px; /* match left rounded corners */
+}
+
+.game-item:hover::after {
+    opacity: 1;
+    transform: translateX(0); /* slide in to cover 80% of box */
+}
+
+
+.tool-badge a {
+    color: inherit;        /* Makes link same color as badge text */
+    text-decoration: none; /* Removes underline */
+    display: block;        /* Make whole badge clickable */
+    width: 100%;
+    height: 100%;
+}
+
+
+
+       /* ============================= */
+        /* Scrollbar – modern slick */
+        /* ============================= */
+
+        /* Required base */
+        *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* Track */
+        *::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        /* Thumb */
+        *::-webkit-scrollbar-thumb {
+            background: rgba(75,205,121,0.25);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        /* Hover glow */
+        *::-webkit-scrollbar-thumb:hover {
+            background: rgba(75,205,121,0.9);
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(75,205,121,0.6) rgba(255,255,255,0.05);
+        }
