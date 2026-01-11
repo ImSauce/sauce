@@ -104,6 +104,34 @@ window.addEventListener("pageshow", (event) => {
 });
 
 
+// ======================
+// Handle Back Button (bfcache) fix
+// ======================
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        const mainContent = document.querySelector(".main-content");
+        const overlay = document.getElementById("click-overlay");
+
+        // Make main content visible
+        if (mainContent) {
+            mainContent.style.opacity = 1;
+        }
+
+        // Remove overlay if it exists
+        if (overlay) {
+            overlay.remove();
+        }
+
+        // Play music if allowed
+        const musicAllowed = sessionStorage.getItem("musicAllowed");
+        if (musicAllowed && bgMusic.paused) {
+            bgMusic.play().then(() => fadeIn(bgMusic)).catch(() => {});
+        }
+    }
+});
+
+
+
 
 
 
