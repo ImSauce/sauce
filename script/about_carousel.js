@@ -1,7 +1,7 @@
 const track = document.querySelector('.fluid-track');
 let isDragging = false;
 let startX, scrollLeft;
-let speed = 0.2; // default auto-scroll speed
+let speed = 1; // default auto-scroll speed
 let currentTranslate = 0;
 
 function animate() {
